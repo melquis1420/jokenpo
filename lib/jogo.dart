@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class Jogo extends StatefulWidget {
   const Jogo({Key? key}) : super(key: key);
@@ -7,7 +8,18 @@ class Jogo extends StatefulWidget {
   _JogoState createState() => _JogoState();
 }
 
+//Usin random function to app answer.
 class _JogoState extends State<Jogo> {
+  var _imagemApp = AssetImage('images/padrao.png');
+  void _opcaoSelecionada(String escolhDoUsuario) {
+    var opcoes = ['pedra', 'papel', 'tesoura'];
+    var numero = Random().nextInt(3);
+    var escolhaApp = opcoes[numero];
+
+    print('Escolha do app: ' + escolhaApp);
+    print('Escolha do usuário: ' + escolhDoUsuario);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +40,8 @@ class _JogoState extends State<Jogo> {
               ),
             ),
           ),
-
-          //evento de toque na tela
-          GestureDetector(
-            onTap: () {
-              print('Imagem clicada!');
-            },
-            child: Image.asset('images/padrao.png'),
+          Image(
+            image: this._imagemApp,
           ),
           Padding(
             padding: EdgeInsets.only(top: 32, bottom: 16),
@@ -50,6 +57,31 @@ class _JogoState extends State<Jogo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              GestureDetector(
+                onTap: () =>
+                    _opcaoSelecionada("pedra"), //usando uma função anonima
+                child: Image.asset(
+                  'images/pedra.png',
+                  height: 100,
+                ),
+              ), //detector de gestos
+              GestureDetector(
+                onTap: () =>
+                    _opcaoSelecionada("papel"), //usando uma função anonima
+                child: Image.asset(
+                  'images/papel.png',
+                  height: 100,
+                ),
+              ),
+              GestureDetector(
+                onTap: () =>
+                    _opcaoSelecionada("tesoura"), //usando uma função anonima
+                child: Image.asset(
+                  'images/tesoura.png',
+                  height: 100,
+                ),
+              ),
+              /*
               Image.asset(
                 'images/papel.png',
                 height: 100,
@@ -62,6 +94,7 @@ class _JogoState extends State<Jogo> {
                 'images/tesoura.png',
                 height: 100,
               ),
+              */
             ],
           )
         ],
